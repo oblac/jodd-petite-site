@@ -1,7 +1,3 @@
----
-description: Initial
----
-
 # Petite
 
 **Petite** is one great little **IoC** container and components manager. _Petite_ is easy to use since it requires no external configuration; it is incredibly fast, lightweight and super-small; so anyone can quickly grasp how it works. _Petite_ is quite extensible and open for customization; and non-invasive.
