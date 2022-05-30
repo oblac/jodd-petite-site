@@ -1,6 +1,6 @@
 # Beans Set Injection
 
-There is one great \(and new\) feature of **Petite** container: it is possible to inject set of beans that are of the same type. All beans registered in the _Petite_ container that implements some interface can be injected as a `Set` collection into a target bean.
+There is one great (and new) feature of **Petite** container: it is possible to inject set of beans that are of the same type. All beans registered in the _Petite_ container that implements some interface can be injected as a `Set` collection into a target bean.
 
 ### Example
 
@@ -53,28 +53,26 @@ After retrieving `GothamCity` from container, the field `superHeroes` will conta
 
 ### Some features
 
-* It works only for **fields**. Due to Java limitation \(generic type
+*   It works only for **fields**. Due to Java limitation (generic type
 
-  erasure\) it is possible to read generic type only of fields. So set
+    erasure) it is possible to read generic type only of fields. So set
 
-  injection will not work for methods and parameters.
-
+    injection will not work for methods and parameters.
 * field names do not play any role in injection, just generic type.
-* Set instance will be always created, even if there are no matching
+*   Set instance will be always created, even if there are no matching
 
-  beans. This prevents null-checking.
+    beans. This prevents null-checking.
+*   Only `Collection`, `Set` and `HashSet` can be used as field type.
 
-* Only `Collection`, `Set` and `HashSet` can be used as field type.
+    Although internal code practically allows all `Collection` types, we
 
-  Although internal code practically allows all `Collection` types, we
+    wanted to prevent possible vagueness of having other types (e.g.
 
-  wanted to prevent possible vagueness of having other types \(e.g.
-
-  having a `List` with no defined beans order\).
+    having a `List` with no defined beans order).
 
 ### For What It's Worth
 
-We can think of interface methods as messages and target beans as message destinations \(hey, who said _Event Bus_ ? :\) Let's see this idea in action.
+We can think of interface methods as messages and target beans as message destinations (hey, who said _Event Bus_ ? :) Let's see this idea in action.
 
 Let's imagine that there is a requirement to send an notification e-mail every time when some user interaction occurs - e.g. when user confirms some payment. We don't have to be theoretical physicists to come with an interface like this one:
 
@@ -90,7 +88,7 @@ Let's now focus on usage in `PaymentService` - business class that actually perf
 
 #### Common approach
 
-Usually, we could simply wire these beans, i.e. inject `EmailPaymentEvent` into the `PaymentService`\:
+Usually, we could simply wire these beans, i.e. inject `EmailPaymentEvent` into the `PaymentService`\\:
 
 ```java
     @PetiteBean
@@ -136,7 +134,7 @@ Instead, we can have the following code:
 
 So adding a new payment event is just about writing the implementation - and that's it! Everything will continue working as before.
 
-Someone may noticed that `PaymentEventDispatcher` is also a `PaymentEvent` - since it is a dispatcher and façade, it make sense. But wait, since `PaymentEventDispatcher` is also part of the _Petite_ context, wouldn\'t it be also inside the injected set? Good thinking, but no - _Petite_ is smart, so it will not put target injection instance in the set.
+Someone may noticed that `PaymentEventDispatcher` is also a `PaymentEvent` - since it is a dispatcher and façade, it make sense. But wait, since `PaymentEventDispatcher` is also part of the _Petite_ context, wouldn\\'t it be also inside the injected set? Good thinking, but no - _Petite_ is smart, so it will not put target injection instance in the set.
 
 This gives us a new freedom - we can have independent dispatcher logics that would work for different events. For example, we can have a parallel executor, or iterative one, already implemented as an abstract dispatcher class that can be reused for your needs.
 
@@ -144,5 +142,4 @@ This gives us a new freedom - we can have independent dispatcher logics that wou
 
 This is a new concept in _Petite_. Although the explained functionality will stay, we feel there is more behind this idea that can enrich this concept.
 
-Please feel free to contact us with your ideas about this interesting subject;\)
-
+Please feel free to contact us with your ideas about this interesting subject;)
